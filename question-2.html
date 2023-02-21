@@ -11,7 +11,7 @@
 
     <script src="three.js"></script>
     <script src="js/Detector.js"></script>
-    		<script src="js/OrbitControls.js"></script>
+    <script src="js/OrbitControls.js"></script>
     <script type="text/javascript">
       // Checks that your browser supports WebGL.
       if (!Detector.webgl) Detector.addGetWebGLMessage();
@@ -25,8 +25,13 @@
       var earthOrbitAngle = 0;
       var earthRotationAngle = 0;
       var moonOrbitAngle = 0;
+
       var earthGroup = new THREE.Group();
       var moonGroup = new THREE.Group();
+      var solarSystem = new THREE.Group();
+      var eartMoonGroup = new THREE.Group();
+
+
       var curTime = Date.now();
 
       var cameraAngle = 5;
@@ -37,12 +42,17 @@
       function init() {
         // Get display canvas
         var canvas = document.getElementById("webglcanvas");
-        console.log(canvas);
 
         // Create the Three.js renderer and attach it to our canvas
         renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true });
         // Set the viewport size
         renderer.setSize(canvas.width, canvas.height);
+
+        renderer.shadowMap.enabled = true;
+	      // rendu coûteux mais plus joli (default: THREE.PCFShadowMap)
+	      renderer.shadowMap.type = THREE.PCFSoftShadowMap; 
+
+
         // Create a new Three.js scene
         scene = new THREE.Scene();
         // Add  a camera so we can view the scene
@@ -72,45 +82,62 @@
         // Create the cube geometry
         var geometry = new THREE.SphereGeometry(1, 32, 32);
         earth = new THREE.Mesh(geometry, material);
-        earth.position.set(5, 5, -30);
+        earth.position.x = 6;
+        //earth.position.set(5, 5, -30);
         earth.rotation.x = Math.PI / 5;
         earth.rotation.y = Math.PI / 5;
+        earth.castShadow = true;
+        earth.receiveShadow = true;
 
         // Création de la sphère pour le soleil
         var sunGeometry = new THREE.SphereGeometry(3, 32, 32);
-        const sunMaterial = new THREE.MeshPhongMaterial({ color: 0xffd700 });
+        const sunMaterial = new THREE.MeshPhongMaterial({ color: 0xffff00 });
         sun = new THREE.Mesh(sunGeometry, sunMaterial);
-        sun.position.set(0, 0, -20);
+        //sun.position.set(0, 0, -20);
+        sun.rotation.x = Math.PI / 5;
+	      sun.rotation.y = Math.PI / 5;
 
         const moonGeometry = new THREE.SphereGeometry(1, 32, 32);
         var moonMaterial = new THREE.MeshPhongMaterial({
           map: new THREE.TextureLoader().load("images/moon_1024.jpg"),
         });
         moon = new THREE.Mesh(moonGeometry, moonMaterial);
-        moon.position.set(-4, -5, -20);
+        //moon.position.set(-4, -5, -20);
+        moon.position.x = -1;
         moon.rotation.x = Math.PI / 5;
         moon.rotation.y = Math.PI / 5;
+        moon.castShadow = true;
+        moon.receiveShadow = true;
 
-        earthGroup.add(earth);
-        moonGroup.add(moon);
-        earthGroup.add(moonGroup);
+        //earthGroup.add(earth);
+        moonGroup.add(moon); // correct
+        //earthGroup.add(moonGroup);
+ 
+        eartMoonGroup.add(earth); // correct
+        eartMoonGroup.add(moonGroup); // correct
+        solarSystem.add(eartMoonGroup); // correct
 
+
+        moonGroup.position.x = 6;
+
+        /*
         scene.add(earthGroup);
         scene.add(sun);
 
-        camera = new THREE.PerspectiveCamera( 45, canvas.width / canvas.height, 1, 4000 );
+        */
+
 
         controls = new THREE.OrbitControls( camera, renderer.domElement );			
 				controls.enableDamping = true; // an animation loop is required when either damping or auto-rotation are enabled
 				controls.dampingFactor = 0.25;
 				controls.screenSpacePanning = false;
-				controls.minDistance = 1;
-				controls.maxDistance = 100;
+				controls.minDistance = -20;
+				controls.maxDistance = 20;
 
         // Add a white point light
         light = new THREE.PointLight(0xffffff, 1.5);
         light.position.set(0, 0, 0);
-        scene.add(light);
+        solarSystem.add(light);
 
         light.castShadow = true;
         light.shadow.mapSize.width = 512; // default
@@ -131,6 +158,14 @@
 				var textureCube    = new THREE.CubeTextureLoader().load( urls );
 				textureCube.format = THREE.RGBFormat;
 				scene.background   = textureCube;
+
+
+        solarSystem.position.z = -16;
+	      solarSystem.add(sun);
+
+	      scene.add(solarSystem)
+
+
       }
 
       // This function is called regularly to update the canvas webgl.
