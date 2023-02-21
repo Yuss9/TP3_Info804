@@ -211,7 +211,7 @@
         moon.rotation.y += angle / 28; // et en 28 jours aussi sur elle-même pour faire face à la terre
 
         controls.update();
-	      controls.target = new THREE.Vector3().setFromMatrixPosition(moon.matrixWorld);
+	      controls.target = new THREE.Vector3().setFromMatrixPosition(sun.matrixWorld);
       }
     </script>
   </head>
