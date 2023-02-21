@@ -14,6 +14,7 @@ Sujet : https://www.lama.univ-savoie.fr/pagesmembres/lachaud/Cours/INFO805/Tests
 
 ## Lancement des executables
 
+Il faut lancer le fichier question-2.html
 .....
 
 Nous sommes à la question 2.7
