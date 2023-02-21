@@ -117,6 +117,20 @@
         light.shadow.mapSize.height = 512; // default
         light.shadow.camera.near = 0.5; // default
         light.shadow.camera.far = 50;
+
+
+        	// Add background
+				var path = "images/MilkyWay/";
+				var format = '.jpg';
+				var urls = [
+					path + 'posx' + format, path + 'negx' + format,
+					path + 'posy' + format, path + 'negy' + format,
+					path + 'posz' + format, path + 'negz' + format
+				];
+				
+				var textureCube    = new THREE.CubeTextureLoader().load( urls );
+				textureCube.format = THREE.RGBFormat;
+				scene.background   = textureCube;
       }
 
       // This function is called regularly to update the canvas webgl.
