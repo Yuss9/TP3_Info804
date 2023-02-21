@@ -17,6 +17,5 @@ Sujet : https://www.lama.univ-savoie.fr/pagesmembres/lachaud/Cours/INFO805/Tests
 Télécharger le git suivant pour les images : https://github.com/Yuss9/TP3_Info804
 
 Il faut lancer le fichier question-2.html
-.....
 
 Nous sommes à la question 2.7
