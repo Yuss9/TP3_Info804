@@ -16,4 +16,4 @@ Sujet : https://www.lama.univ-savoie.fr/pagesmembres/lachaud/Cours/INFO805/Tests
 
 .....
 
-Nous sommes à la question 1.2
+Nous sommes à la question 2.2
