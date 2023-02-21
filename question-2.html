@@ -27,9 +27,6 @@
       var earthGroup = new THREE.Group();
       var moonGroup = new THREE.Group();
       var curTime = Date.now();
-      var controls = null;
-      var objects = [];
-
 
       // This function is called whenever the document is loaded
       function init() {
@@ -42,24 +39,14 @@
         // Set the viewport size
         renderer.setSize(canvas.width, canvas.height);
         // Create a new Three.js scene
-
-        // Floor
-        //var floorHeight = 7000;
-        //geometry = new THREE.SphereGeometry(floorHeight, 10, 6, 0, (Math.PI * 2), 0, 0.8);
-        //geometry.applyMatrix( new THREE.Matrix4().makeTranslation(0, -floorHeight, 0) );
-
-//        var floor_material = new THREE.MeshLambertMaterial( );
-
         scene = new THREE.Scene();
-        //floorMesh = new THREE.Mesh( geometry, floor_material );
-        //objects.push( floorMesh );
-        //scene.add(floorMesh);
-
         // Add  a camera so we can view the scene
-        camera = new THREE.PerspectiveCamera( 80, window.innerWidth / window.innerHeight, 1, 9000 );
-        //scene.add( controls.getPlayer() );
-        controls = new THREE.PointerLockControls( camera, 100, 30, true, objects );
-//        scene.add(controls.getPlayer())
+        camera = new THREE.PerspectiveCamera(
+          45,
+          canvas.width / canvas.height,
+          1,
+          4000
+        );
 
         // les textures des éléments
         // Create a texture-mapped cube and add it to the scene
@@ -169,67 +156,9 @@
     ></canvas>
     <!-- We run the WebGL code at the end to be sure that the document is loaded.
       -->
-    <script src="js/FPSConstrols.js"></script>
-    <script src="js/pointerlock.js"></script>
-    <script>
-      function eventHandlers() {
-
-        // Keyboard press handlers
-        var onKeyDown = function ( event ) { event.preventDefault(); event.stopPropagation(); handleKeyInteraction(event.keyCode, true); };
-        var onKeyUp = function ( event ) { event.preventDefault(); event.stopPropagation(); handleKeyInteraction(event.keyCode, false); };
-        document.addEventListener( 'keydown', onKeyDown, false );
-        document.addEventListener( 'keyup', onKeyUp, false );
-
-
-      }
-
-      // HANDLE KEY INTERACTION
-      function handleKeyInteraction(keyCode, boolean) {
-        var isKeyDown = boolean;
-
-        switch(keyCode) {
-          case 38: // up
-          case 87: // w
-            controls.movements.forward = boolean;
-            break;
-
-          case 40: // down
-          case 83: // s
-            controls.movements.backward = boolean;
-            break;
-
-          case 37: // left
-          case 65: // a
-            controls.movements.left = boolean;
-            break;
-
-          case 39: // right
-          case 68: // d
-            controls.movements.right = boolean;
-            break;
-
-          case 32: // space
-            if (!isKeyDown) {
-              controls.jump();
-              console.log('jump')
-            }
-            break;
-
-          case 16: // shift
-            controls.walk(boolean);
-            break;
-
-          case 67: // crouch (CTRL + W etc destroys tab in Chrome!)
-            controls.crouch(boolean);
-
-        }
-      }
-    </script>
     <script>
       init();
-      eventHandlers();
       run();
     </script>
-
   </body>
 </html>
