@@ -11,6 +11,7 @@
 
     <script src="three.js"></script>
     <script src="js/Detector.js"></script>
+    		<script src="js/OrbitControls.js"></script>
     <script type="text/javascript">
       // Checks that your browser supports WebGL.
       if (!Detector.webgl) Detector.addGetWebGLMessage();
@@ -27,6 +28,10 @@
       var earthGroup = new THREE.Group();
       var moonGroup = new THREE.Group();
       var curTime = Date.now();
+
+      var cameraAngle = 5;
+			var controls = null;
+
 
       // This function is called whenever the document is loaded
       function init() {
@@ -93,7 +98,14 @@
         scene.add(earthGroup);
         scene.add(sun);
 
-     
+        camera = new THREE.PerspectiveCamera( 45, canvas.width / canvas.height, 1, 4000 );
+
+        controls = new THREE.OrbitControls( camera, renderer.domElement );			
+				controls.enableDamping = true; // an animation loop is required when either damping or auto-rotation are enabled
+				controls.dampingFactor = 0.25;
+				controls.screenSpacePanning = false;
+				controls.minDistance = 1;
+				controls.maxDistance = 100;
 
         // Add a white point light
         light = new THREE.PointLight(0xffffff, 1.5);
@@ -127,7 +139,7 @@
 
       // This function is called regularly to update objects.
       function animate() {
-        camera.lookAt(earth.matrixWorld.getPosition());
+        //camera.lookAt(earth.matrixWorld.getPosition());
 
         // Computes how time has changed since last display
         var now = Date.now();
@@ -143,6 +155,9 @@
 
         moonGroup.rotation.y += angle / 28; // la lune tourne en 28 jours autour de la terre
         moon.rotation.y += angle / 28; // et en 28 jours aussi sur elle-même pour faire face à la terre
+
+        controls.update();
+	      controls.target = new THREE.Vector3().setFromMatrixPosition(sun.matrixWorld);
       }
     </script>
   </head>
