@@ -7,8 +7,6 @@ const http = require("http").Server(app);
 
 const port = 5000;
 
-var comptes = new Map();
-
 app.use(express.static(__dirname, ""));
 
 app.get('/q1', function (req, res) {
