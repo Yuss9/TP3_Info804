@@ -6,6 +6,8 @@ Sujet : https://www.lama.univ-savoie.fr/pagesmembres/lachaud/Cours/INFO805/Tests
 
 ## Screenshots
 
+![App Screenshot](https://media.discordapp.net/attachments/1019568034358239232/1077693476268933180/Screenshot_2023-02-21_at_21.48.35.png) 
+
 ## Authors
 
 - [@YURTSEVEN Huseyin](https://github.com/Yuss9)
@@ -18,4 +20,5 @@ Télécharger le git suivant pour les images : https://github.com/Yuss9/TP3_Info
 
 Il faut lancer le fichier question-2.html
 
-Nous sommes à la question 2.7
+Nous sommes à la question 3.0
+Toutes les questions ont été abordées.
